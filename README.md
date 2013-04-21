@@ -5,11 +5,11 @@ A tiny Node.js module to share on social networks
 Only have a few simple commands
 Create a new instance 
 
-saucisse = new Saucisse(myConfig)
+`saucisse = new Saucisse(myConfig)`
 
 Post a tweet
 
-saucisse.tweet "This is a saucisse tweet", console.log
+`saucisse.tweet "This is a saucisse tweet", console.log`
 
 
 

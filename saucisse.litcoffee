@@ -46,7 +46,7 @@ Our main module class *Saucisse*
           )
     
 
-      tweet : (text, done) ->
+      tweet : (text, done) =>
         data = status : text
         @twitterOauth.post(
           'http://api.twitter.com/1/statuses/update.json', 
@@ -59,14 +59,10 @@ Our main module class *Saucisse*
 
 
 
-
 Public methods
 ---------------
 
 
     module.exports = Saucisse
 
-    #CONFIG = require 'config'
-    #saucisse = new Saucisse(CONFIG)
-    #saucisse.tweet "test", (err, resp) -> 
-    #  console.error err, resp
+

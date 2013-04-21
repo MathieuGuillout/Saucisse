@@ -1,0 +1,13 @@
+{
+  "name": "saucisse",
+  "version": "0.0.1",
+  "description": "A tiny social network publishing module",
+  "main": "saucisse.litcoffee",
+  "scripts": {},
+  "repository": "git@github.com:MathieuGuillout/Saucisse.git",
+  "author": "matttam",
+  "license": "BSD",
+  "dependencies": {
+    "oauth": "~0.9.10"
+  }
+}

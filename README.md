@@ -11,6 +11,9 @@ Post a tweet
 
 `saucisse.tweet "This is a saucisse tweet", console.log`
 
+Post a facebook message
+
+`saucisse.fb "This is a saucisse facebook message", console.log`
 
 
 Dependencies
@@ -19,6 +22,7 @@ We need an oauth authentication library to authenticate on twitter API.
 
 ```coffeescript
 Oauth = require('oauth').OAuth
+https = require 'https'
 ```
 
 Let's do it
@@ -29,6 +33,7 @@ Our main module class *Saucisse*
 class Saucisse
   constructor: (options = {}) ->
     @options = options
+
     if options.twitter?
       throw new Error("Missing twitter key") if not options.twitter.consumer_key?
       throw new Error("Missing twitter secret") if not options.twitter.consumer_secret?
@@ -45,6 +50,10 @@ class Saucisse
         'HMAC-SHA1'
       )
 
+    if options.facebook?
+      throw new Error("Missing app access token") if not options.facebook.access_token?
+      throw new Error("Missing facebook graph id") if not options.facebook.graph_id?
+
 
   tweet : (text, done) =>
     data = status : text
@@ -57,6 +66,27 @@ class Saucisse
     )
 ```
 
+      fb : (text, done) =>
+        postData = "message=#{encodeURIComponent(text)}"
+        postData += "&access_token=#{@options.facebook.access_token}"
+```coffeescript
+opts = 
+      host   : "graph.facebook.com"
+      port   : 443 
+      path   : "/#{@options.facebook.graph_id}/feed"
+      method : "POST"
+      headers:
+        'Content-Type'   : 'application/x-www-form-urlencoded'
+        'Content-Length' : postData.length
+   
+    req = https.request opts, (res) ->
+      res.setEncoding 'utf-8'
+      res.on 'data', (chunk) ->
+        done null, JSON.parse(chunk)
+   
+    req.write postData
+    req.end()
+```
 
 
 Public methods

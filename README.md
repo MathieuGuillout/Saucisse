@@ -33,8 +33,14 @@ Our main module class *Saucisse*
 class Saucisse
   constructor: (options = {}) ->
     @options = options
+```
 
-    if options.twitter?
+**configuration** part
+There's a lot of configuration happening there
+To get an app access token for facebook, cf : [Publishing with an access token](https://developers.facebook.com/docs/opengraph/howtos/publishing-with-app-token/)
+
+```coffeescript
+if options.twitter?
       throw new Error("Missing twitter key") if not options.twitter.consumer_key?
       throw new Error("Missing twitter secret") if not options.twitter.consumer_secret?
       throw new Error("Missing twitter token") if not options.twitter.access_token?
@@ -54,7 +60,12 @@ class Saucisse
       throw new Error("Missing app access token") if not options.facebook.access_token?
       throw new Error("Missing facebook graph id") if not options.facebook.graph_id?
 
+```
+*twitter* methods
+Send a tweet.
+Just take the text of the tweet as a parameter
 
+```coffeescript
   tweet : (text, done) =>
     data = status : text
     @twitterOauth.post(
@@ -66,19 +77,25 @@ class Saucisse
     )
 ```
 
-      fb : (text, done) =>
-        postData = "message=#{encodeURIComponent(text)}"
-        postData += "&access_token=#{@options.facebook.access_token}"
-        opts = 
-          host   : "graph.facebook.com"
-          port   : 443 
-          path   : "/#{@options.facebook.graph_id}/feed"
-          method : "POST"
-          headers:
-            'Content-Type'   : 'application/x-www-form-urlencoded'
-            'Content-Length' : postData.length
+
+*fb* methods
+Send a facebook message. on the graphid configured for this instance
+Just take the text as a parameter
+
 ```coffeescript
-req = https.request opts, (res) ->
+  fb : (text, done) =>
+    postData = "message=#{encodeURIComponent(text)}"
+    postData += "&access_token=#{@options.facebook.access_token}"
+    opts = 
+      host   : "graph.facebook.com"
+      port   : 443 
+      path   : "/#{@options.facebook.graph_id}/feed"
+      method : "POST"
+      headers:
+        'Content-Type'   : 'application/x-www-form-urlencoded'
+        'Content-Length' : postData.length
+
+    req = https.request opts, (res) ->
       res.setEncoding 'utf-8'
       res.on 'data', (chunk) ->
         done null, JSON.parse(chunk)
@@ -86,6 +103,7 @@ req = https.request opts, (res) ->
     req.write postData
     req.end()
 ```
+
 
 
 Public methods

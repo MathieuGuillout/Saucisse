@@ -34,6 +34,12 @@ Our main module class *Saucisse*
       constructor: (options = {}) ->
         @options = options
 
+
+**configuration** part
+There's a lot of configuration happening there
+To get an app access token for facebook, cf : [Publishing with an access token](https://developers.facebook.com/docs/opengraph/howtos/publishing-with-app-token/)
+
+
         if options.twitter?
           throw new Error("Missing twitter key") if not options.twitter.consumer_key?
           throw new Error("Missing twitter secret") if not options.twitter.consumer_secret?
@@ -55,6 +61,11 @@ Our main module class *Saucisse*
           throw new Error("Missing facebook graph id") if not options.facebook.graph_id?
     
 
+*twitter* methods
+Send a tweet.
+Just take the text of the tweet as a parameter
+
+
       tweet : (text, done) =>
         data = status : text
         @twitterOauth.post(
@@ -64,6 +75,12 @@ Our main module class *Saucisse*
           data,
           ((err, resp) -> done(err, JSON.parse(resp)))
         )
+
+
+
+*fb* methods
+Send a facebook message. on the graphid configured for this instance
+Just take the text as a parameter
 
 
       fb : (text, done) =>
@@ -85,6 +102,7 @@ Our main module class *Saucisse*
        
         req.write postData
         req.end()
+
 
 
 

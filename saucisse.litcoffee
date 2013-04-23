@@ -11,6 +11,9 @@ Post a tweet
 
 `saucisse.tweet "This is a saucisse tweet", console.log`
 
+Post a facebook message
+
+`saucisse.fb "This is a saucisse facebook message", console.log`
 
 
 Dependencies
@@ -19,7 +22,7 @@ We need an oauth authentication library to authenticate on twitter API.
 
 
     Oauth = require('oauth').OAuth
-    http  = require 'http'
+    https = require 'https'
 
 
 Let's do it
@@ -63,23 +66,23 @@ Our main module class *Saucisse*
         )
 
 
-      facebookMessage : (text, done) =>
-        postData = "message=#{encodeURIComponent(text)}&access_token=#{@options.facebook.access_token}"
+      fb : (text, done) =>
+        postData = "message=#{encodeURIComponent(text)}"
+        postData += "&access_token=#{@options.facebook.access_token}"
 
-        options = 
+        opts = 
           host   : "graph.facebook.com"
-          port   : 443
+          port   : 443 
           path   : "/#{@options.facebook.graph_id}/feed"
           method : "POST"
           headers:
             'Content-Type'   : 'application/x-www-form-urlencoded'
             'Content-Length' : postData.length
        
-        req = http.request option, (res) ->
+        req = https.request opts, (res) ->
           res.setEncoding 'utf-8'
           res.on 'data', (chunk) ->
-            console.log chunk
-            done null, chunk
+            done null, JSON.parse(chunk)
        
         req.write postData
         req.end()
@@ -93,11 +96,3 @@ Public methods
     module.exports = Saucisse
 
 
-
-    sc = new Saucisse 
-      facebook:
-        access_token: "BAAFDt8VGgj0BAJjZCD19YWOi9EGtwGKDh3Ikprtv1Hlo30hPyURkzShsEZBRoLhKkCteW1J4hQy9LdRGlp69iD5s1DMkfWpYcZAkMHjDnxg6wOuOqMaZAWVWtZBs7uW3X6tP8TMtNehce17ixPzI2XE8Ar00TimHD17FTODx9NWO7okBENLQZCxye8Gb0xxS0ZC2R3k95hC2WJyUxy9uqrZC"
-        graph_id: '100003518167596'
-
-    sc.facebookMessage "This is another test", (err, res) ->
-      console.error err, res

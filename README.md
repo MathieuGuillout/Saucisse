@@ -35,7 +35,7 @@ class Saucisse
     @options = options
 ```
 
-*configuration* part
+## Configuration part
 
 There's a lot of configuration happening there
 
@@ -64,10 +64,9 @@ if options.twitter?
 ```
 
 
-*twitter* methods
+## twitter methods
 
-Send a tweet.
-
+### Send a tweet.
 Just take the text of the tweet as a parameter
 
 ```coffeescript
@@ -83,8 +82,10 @@ Just take the text of the tweet as a parameter
 ```
 
 
-*fb* methods
-Send a facebook message. on the graphid configured for this instance
+## fb methods
+
+### Send a facebook message.
+on the graphid configured for this instance
 Just take the text as a parameter
 
 ```coffeescript

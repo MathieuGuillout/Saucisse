@@ -35,7 +35,7 @@ Our main module class *Saucisse*
         @options = options
 
 
-*configuration* part
+## Configuration part
 
 There's a lot of configuration happening there
 
@@ -64,10 +64,9 @@ To get an app access token for facebook, cf : [Publishing with an access token](
 
 
 
-*twitter* methods
+## twitter methods
 
-Send a tweet.
-
+### Send a tweet.
 Just take the text of the tweet as a parameter
 
 
@@ -83,8 +82,10 @@ Just take the text of the tweet as a parameter
 
 
 
-*fb* methods
-Send a facebook message. on the graphid configured for this instance
+## fb methods
+
+### Send a facebook message.
+on the graphid configured for this instance
 Just take the text as a parameter
 
 

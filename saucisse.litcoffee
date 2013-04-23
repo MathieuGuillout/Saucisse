@@ -69,7 +69,6 @@ Our main module class *Saucisse*
       fb : (text, done) =>
         postData = "message=#{encodeURIComponent(text)}"
         postData += "&access_token=#{@options.facebook.access_token}"
-
         opts = 
           host   : "graph.facebook.com"
           port   : 443 
@@ -78,7 +77,7 @@ Our main module class *Saucisse*
           headers:
             'Content-Type'   : 'application/x-www-form-urlencoded'
             'Content-Length' : postData.length
-       
+
         req = https.request opts, (res) ->
           res.setEncoding 'utf-8'
           res.on 'data', (chunk) ->

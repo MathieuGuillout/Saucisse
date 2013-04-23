@@ -35,8 +35,10 @@ class Saucisse
     @options = options
 ```
 
-**configuration** part
+*configuration* part
+
 There's a lot of configuration happening there
+
 To get an app access token for facebook, cf : [Publishing with an access token](https://developers.facebook.com/docs/opengraph/howtos/publishing-with-app-token/)
 
 ```coffeescript
@@ -59,10 +61,13 @@ if options.twitter?
     if options.facebook?
       throw new Error("Missing app access token") if not options.facebook.access_token?
       throw new Error("Missing facebook graph id") if not options.facebook.graph_id?
-
 ```
+
+
 *twitter* methods
+
 Send a tweet.
+
 Just take the text of the tweet as a parameter
 
 ```coffeescript

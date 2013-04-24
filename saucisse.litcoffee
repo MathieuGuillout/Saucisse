@@ -16,6 +16,20 @@ Post a facebook message
 `saucisse.fb "This is a saucisse facebook message", console.log`
 
 
+To obtain the facebook app accesstoken
+- Go the the GRAPH API Explorer
+- Pick your app in the drop down list
+- Click get token
+- Pick the needed permissions ( managepages, publish, ... )
+- Get the token
+- Extend it through a call to 
+https://graph.facebook.com/oauth/access_token?
+client_id=APP_ID&
+client_secret=APP_SECRET&
+grant_type=fb_exchange_token&
+fb_exchange_token=EXISTING_ACCESS_TOKEN 
+
+
 Dependencies
 ------------
 We need an oauth authentication library to authenticate on twitter API.
